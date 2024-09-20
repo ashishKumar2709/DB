@@ -1,0 +1,17 @@
+nano <filename>
+to open file from/on terminal
+
+bash <file.sh>
+to run script file from terminal
+
+ctrl+o
+when file is open, this saves the changes to file.
+
+ctrl+k
+when cursor at a particular line, this will cut the whole line.
+
+ctrl+X
+to exit nano
+
+ctrl+u
+to uncut or paste a line

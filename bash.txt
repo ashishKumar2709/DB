@@ -1,0 +1,110 @@
+echo <message>
+To print a message in the terminal.
+
+pwd
+fullform: Print working directory. Gives the path of the current directory
+
+ls
+list files and folders in the current directory.
+
+cd <folder_name>
+changes current directory to the the folder available in the current directory.
+
+cd ..
+takes current directory to one level out.
+
+cd ../..
+changes current directory two level out.
+
+more <filename>
+to view the contens of a file in terminal.
+
+clear
+to clear the terminal
+
+ls -l
+list the files and folder in the current directory in long list format.
+
+mkdir <folder_name>
+creates a folder with name <folder_name> in current directory.
+
+mkdir <path/folder_name>
+creates a folder with name <folder_name> in destination directory.
+
+touch <path/filename> 
+creates a file with name <filename> in the destination directory.
+
+<command> --help
+to display usage of the command and associated flags that can be used with it.
+
+ls -a or ls --all
+list all the files in the directory including hidden files.
+
+cp <file> <destination path>
+copies a file in the current directory to the destination folder.
+
+rm <filename>
+removes file with name <filename> in the current directory.
+
+mv <filename> <new_filename>
+rename a file with name <filename> to name <new_filename> 
+
+mv <file> <destination path>
+moves a file in current directory to destination directory.
+
+mv <path/filename> <destination path>
+moves a file in mentioned directory to destination directory.
+
+find <folder_name>
+display a tree of folders within a folder with name <folder_name> in the current directory.
+
+find -name <filename>
+to search for a specific file or folder. It shows the location of the file or folder.
+
+rmdir <directory_name>
+to remove a directory if the directory is empty
+
+rm -r <folder_name>
+removes folder and its content recursively.
+
+echo <text> >> <filename>
+to print the entered text in the file named <filename>
+
+cp -r <folder_to_copy> <new_copy_folder_name>
+recursively copies a folder and its content to a new folder.
+
+cat <filename> | wc -l >> <filename2>
+first cat command is used to read the file and output is piped to wc command to count number of lines (-l) and finally output is appended to a different file.
+
+wc -w < <file1> >> <file2>
+here wc command with -w is used to count number of words in a file1(which inputed using redirection) and then the output is appended to a diffrent file2.
+
+wc -m <filename>
+for counting number of characters in a file
+
+grep --color <pattern_to_search>[a-z]* <filename>
+to search for a specific pattern in a file and highlight the pattern with a default color.
+
+grep -o '<pattern>[a-z]*' <filename> | wc -l
+grep command lists all the word matching the the pattern in separate line, this given as input to next part wc and wc(wordcount) with -l counts each line.Thus counting number of words matching the given pattern 
+
+grep -n <pattern>[a-z]* <filename>
+this will list all the lines where matching pattern is found with the line number in the beginning.
+
+sed
+this command is used different flags to filter and transform text.
+
+sed -E 's/([0-9]+).*/\1/'
+this will match everything except the digits and replace it with same digits.
+
+grep -n '<pattern>[a-z]*' <filename> | sed -E 's/([0-9]+).*/\1/'
+grep will give lines with matching pattern and line number in the beginning and this is piped as input to sed command which will filter out the text and keep the line numbers only.
+
+sed 's/<pattern_1>/<replacement_1>/; s/<pattern_2>/<replacement_2>/'
+one can replace many pattern in same text using sed as above.
+
+<script_file.sh> <input_file> |  grep -E --color '<pattern1>[a-z]*|<pattern2>[a-z]*'
+above a script file run which takes a file as argument and pipes the output to a grep command with extended regular expression(-E) show that it recognizes '|' in the patternt to match. two diffrent pattern are being matched using a |.
+
+ diff <file_1> <file_2>
+ diff is a command to view the difference between two files.

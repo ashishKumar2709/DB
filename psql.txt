@@ -1,0 +1,140 @@
+psql --username=<username> --dbname=<dbname>
+to login to the postgreSQL
+
+\l
+to list the existing databases.
+
+CREATE DATABASE <database_name>;
+to create a database with mentioned name.(all command with key words in capital is followed by a semicolon)
+
+\c <database_name>
+connects to the mentioned database.
+
+\d
+to display all the tables within the database.
+
+CREATE TABLE <table_name>();
+to create a table with mentioned name in the currently connected database.
+
+\d <table_name>
+to view more details about a table.
+
+ALTER TABLE <table_name> ADD COLUMN <column_name> DATATYPE <constraint>;
+to change a table, to add column with mentioned name and datatype with constraints if any(eg NOT NULL).
+
+Datatypes can be: 
+    INT, 
+    VARCHAR(maximum number of charachters), 
+    SERIAL -type will make your column an INT with a NOT NULL, 
+    DATE,
+    NUMERIC(i, d) -for decimal numbers, i is number of integer digits, d is for number of decimal digits,
+
+
+ALTER TABLE <table_name> DROP COLUMN <column_name>;
+change table removing a column with mentioned name.
+
+ALTER TABLE <table_name> RENAME COLUMN <column_name> TO <new_name>;
+to rename a existing column name to a new name.
+
+INSERT INTO <table_name>(column_1, column_2) VALUES(value1, value2);
+to insert values(rows) in each mentioned column.
+
+INSERT INTO <table_name>(column_1, column_2) VALUES(value1, value2), (value3, value4), (value5, value6), (value7, value8);
+to insert multiple values(rows) in each mentioned column.
+
+SELECT columns FROM <table_name>;
+to view the data in the mentioned table and column.
+
+SELECT * FROM <table_name>;
+to view all the data in a column.
+
+DELETE FROM <table_name> WHERE <condition>;
+to delete entire row using a where query to select a particular row.
+
+DROP TABLE <table_name>;
+to remove a table.
+
+ALTER DATABASE database_name RENAME TO new_database_name;
+to rename a existing database name.
+
+UPDATE table_name SET column_name=new_value WHERE condition;
+to update existing value in a row, where row meets a particular condition.
+
+SELECT * FROM table_name ORDER BY column_name;
+Sorts the table by the icreasing order of the column nam e provided
+
+ALTER TABLE table_name ADD PRIMARY KEY(column_name);
+to set a cloumn whose values uniquely identifies different rows as a primary key.
+
+ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+to drop a constraint for a table. for dropping Pimary key constraint is '<table_name>_pkey'.
+
+ALTER TABLE table_name ADD COLUMN column_name DATATYPE REFERENCES referenced_table_name(referenced_column_name);
+to add a column which is a refrence to a column from a different related table.
+
+ALTER TABLE table_name ADD COLUMN column_name DATATYPE CONSTRAINT REFERENCES referenced_table_name(referenced_column_name);
+
+ALTER TABLE table_name ADD UNIQUE(column_name);
+This ensures all values specified in this column must be unique in all the rows.
+
+ALTER TABLE table_name ALTER COLUMN column_name SET NOT NULL;
+to add a not null constraint to table which have a referenced column, 
+ means when adding values to this table referenced column value cannot be null.
+
+CREATE TABLE table_name(column_name DATATYPE CONSTRAINTS);
+to create table by mentioning table name along with a column name its datatype and constraint in one go.
+
+ALTER TABLE table_name ADD FOREIGN KEY(column_name) REFERENCES referenced_table(referenced_column);
+to add a existing column as a foreign key 
+to add a constraint in the foreign key, means that the rows of table which is referenced in column has a one to one relationship with each row of other table.
+
+ALTER TABLE table_name ADD PRIMARY KEY(column1, column2);
+to add composite primary key ie to add a primary key from two columns.
+
+SELECT columns FROM table_1 FULL JOIN table_2 ON table_1.primary_key_column = table_2.foreign_key_column;
+to view the data from two related tables on the basis of primary key of one and foreign key of other.
+
+SELECT columns FROM junction_table
+FULL JOIN table_1 ON junction_table.foreign_key_column = table_1.primary_key_column
+FULL JOIN table_2 ON junction_table.foreign_key_column = table_2.primary_key_column;
+to join three tables based on primary key and related foreign key in the junction table.
+
+TRUNCATE table1, table2, table3..
+to delete all the rows in one or multiple tables.
+
+
+TOPICS
+
+SQL: structured query language
+Basic data types
+Literals
+Arithmetic expressions
+Basic CREATE statement
+Basic SELECT statement
+SELECT FROM statement
+Logic and comparison expressions
+The NULL value
+Special WHERE operators
+Basic INSERT statement
+Basic DELETE statement
+Intro to MySQL
+Alter table
+PRIMARY KEY constraint
+FOREIGN KEY constraint
+Results ordering
+Types of JOINs
+Basic UPDATE statement
+Updating selected rows
+Inserting selected rows
+Aggregate functions
+GROUP BY statement
+Subqueries
+Consistency constraints
+Set operations
+Date & Time data types
+
+Notes:
+If you leave your virtual machine, your database may not be saved. You can make a dump of it by entering pg_dump -cC --inserts -U freecodecamp universe > universe.sql in a bash terminal (not the psql one). It will save the commands to rebuild your database in universe.sql. The file will be located where the command was entered. If it's anything inside the project folder, the file will be saved in the VM. You can rebuild the database by entering psql -U postgres < universe.sql in a terminal where the .sql file is.
+
+If you are saving your progress on freeCodeCamp.org, after getting all the tests to pass, follow the instructions above to save a dump of your database. Save the universe.sql file in a public repository and submit the URL to it on freeCodeCamp.org.
+

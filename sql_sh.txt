@@ -1,0 +1,354 @@
+sh <filename.sh>
+to run the scripts written in file using shell interpreter
+
+bash <filename.sh>
+to run the scripts written in file using bash interpreter
+
+which bash
+gives absolute path of bash interpreter
+
+#!<path_to_interpreter>
+this is called shebang which can be placed at the top of the .sh file to tell program which interpretor to use while running.
+
+chmod +x <filename>
+to add executable permission to the file
+
+<path>/filename.sh 
+to execute script files
+
+<VARIABLE_NAME>=<VALUE>
+To create a variable with name VARIABLE_NAME and value
+
+read <VARIABLE_NAME>
+To read a user input value and store it in a variable
+
+man <command>
+to find any manual for a particular command
+
+#<comment>
+to add a comment in the .sh file
+
+<path>/filename.sh <arg1> <arg2> <arg3>
+to execute script which takes arguments
+
+echo $*
+to print all the input arguments.
+
+echo $<number>
+to print individual input arguments. eg $1 for printing arg1.
+
+if [[ CONDITION ]]
+then
+  STATEMENTS
+else
+  STATEMENTS
+fi
+if Else commands syntax for scripts where if condition is true, statement in then is executed, if not else statement is executed and finally block ends with fi.
+
+
+echo $?
+to see exit status of last command. if exit status is 0 if command is correct but non-zero if bad command is detected.
+
+[[ expression ]]
+arg1 OP arg2   Arithmetic tests.  OP is one of -eq, -ne,
+                     -lt, -le, -gt, or -ge.
+    
+Arithmetic binary operators return true if ARG1 is equal, not-equal,
+    less-than, less-than-or-equal, greater-than, or greater-than-or-equal
+    than ARG2.
+
+
+[[ expression ]]; echo$?
+to run the command and see its exit status by writing commands in one line
+
+
+[[ -a <filename> ]]; echo $?
+to check if  a file exists as exit status will be 0 if true(ie 0 errors or true)
+
+[[ -w <filename> ]]; echo $?
+to check if  a file write permission exists as exit status will be 0 if true(ie 0 errors or true)
+
+[[ -x <filename> ]]; echo $?
+to check if  a file execute permission exists as exit status will be 0 if true (ie 0 errors or true). if exit status is 1 it means expression results in false
+
+for (( i = 10; i > 0; i-- ))//<loop condition>
+do
+  echo $i //execute statement
+done
+for loop syntax for loop.
+
+
+:'
+  comment here
+  more comment here
+'
+syntax for multiline comment
+
+
+while [[ CONDITION ]]
+do
+  STATEMENTS
+done
+syntax for while
+
+
+
+
+#!/bin/bash
+
+# Program that counts down to zero from a given argument
+
+echo -e "\n~~ Countdown Timer ~~\n"
+
+if [[ $1 -gt 0 ]]
+then
+  : '
+  for (( i = $1; i >= 0; i-- ))
+  do
+    echo $i
+    sleep 1
+  done
+  '
+
+  I=$1
+
+  while [[ $I -ge 0 ]]
+  do
+    echo $I
+    (( I-- ))
+    sleep 1
+  done
+else
+  echo Include a positive integer as the first argument.
+fi
+
+
+-----------------------------------------------------------------------------------------------------
+#!/bin/bash
+
+echo -e "\n~~ Questionnaire ~~\n"
+
+QUESTION1="What's your name?"
+QUESTION2="Where are you from?"
+QUESTION3="What's your favorite coding website?"
+
+echo $QUESTION1
+read NAME
+
+echo $QUESTION2
+read LOCATION
+
+echo $QUESTION3
+read WEBSITE
+
+echo -e "\nHello $NAME from $LOCATION. I learned that your favorite coding website is $WEBSITE!"
+
+---------------------------------------------------------------------------------------------------------
+
+printenv
+to view the predefined environtment variables
+
+echo $LANG 
+to see the language settings of shell
+
+declare -p
+to view all the variables of the shell(-p refers to printing). This list includes all the environment variables, and any others that may have been created in the current shell.
+
+declare -p <variable>
+to view a specific variable
+
+echo $RANDOM
+generates a random number between 0 and 32767 everytime
+
+
+((Arithmetic expression))
+double parenthesis to perform arithmatic operations in shell
+
+------------------------------------------------------------------------------------------------------
+#!/bin/bash
+# Bingo Number Generator
+echo -e "\n~~ Bingo Number Generator ~~\n"
+
+NUMBER=$(( RANDOM % 75 + 1 ))
+I=0
+TEXT="The next number is, "
+
+echo $NUMBER
+
+if (( NUMBER <= 15 ))
+then
+  echo $TEXT B:$NUMBER
+elif [[ $NUMBER -le 30 ]]
+then
+  echo $TEXT I:$NUMBER
+elif (( NUMBER < 46 ))
+then
+  echo $TEXT N:$NUMBER
+elif [[ $NUMBER -lt 61 ]]
+then
+  echo $TEXT G:$NUMBER
+else 
+  echo $TEXT O:$NUMBER
+fi
+--------------------------------------------------------------------------------------------------------
+echo ${ARR[<n>]}
+to print n+1th element in an array named ARR
+
+echo ${ARR[@ or *]}
+to print all the elements in an array named ARR
+
+FUNCTION_NAME() {
+  STATEMENTS
+}
+syntax to create a function in shell
+
+
+until [[ CONDITION ]]
+do
+  STATEMENTS
+done
+syntax for until loop. Until condition is met loop executes statements.
+
+
+----------------------------------------------------------------------------------------------
+#!/bin/bash
+
+#Program to tell a persons fortune
+
+echo -e "\n~~ Fortune Teller ~~\n"
+
+RESPONSES=("Yes" "No" "Maybe" "Outlook good" "Don't count on it" "Ask again later")
+N=$(( RANDOM % 6 ))
+
+GET_FORTUNE(){
+  if [[ ! $1 ]]
+  then
+    echo "Ask a yes or no question:"
+  else
+    echo Try again. Make sure it ends with a question mark:
+  fi
+  read QUESTION
+}
+GET_FORTUNE
+until [[ $QUESTION =~ \?$ ]]
+do
+  GET_FORTUNE again
+done
+
+echo -e "\n ${RESPONSES[$N]}"
+--------------------------------------------------------------------------------------------------------
+type <command>
+to view the type of a command
+
+-------------------------------------------------------------------------------------------------------
+
+#!/bin/bash
+
+#Program to run my other four programs
+
+./questionnaire.sh
+./countdown.sh 3
+./bingo.sh
+./fortune.sh
+
+---------------------------------------------------------------------------------------------------------
+
+cat <filename>
+cat command is used to view the content of a file
+
+cat <filename> | while read <variable1> <variable2>
+do
+  <STATEMENTS>
+done
+//to pipe the output of cat command to while loop to through all the rows one at a time.
+
+
+
+-----------------------------------------------------------------------------------------------------
+#!/bin/bash
+
+# Script to insert data from courses.csv and students.csv into students database
+
+PSQL="psql -X --username=freecodecamp --dbname=students --no-align --tuples-only -c"
+echo $($PSQL "TRUNCATE students, majors, courses, majors_courses")
+
+cat courses.csv | while IFS="," read MAJOR COURSE
+do
+  if [[ $MAJOR != "major" ]]
+  then
+    # get major_id
+    MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
+
+    # if not found
+    if [[ -z $MAJOR_ID ]]
+    then
+      # insert major
+      INSERT_MAJOR_RESULT=$($PSQL "INSERT INTO majors(major) VALUES('$MAJOR')")
+      if [[ $INSERT_MAJOR_RESULT == "INSERT 0 1" ]]
+      then
+        echo Inserted into majors, $MAJOR
+      fi
+
+      # get new major_id
+      MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
+    fi
+
+    # get course_id
+    COURSE_ID=$($PSQL "SELECT course_id FROM courses WHERE course='$COURSE'")
+
+    # if not found
+    if [[ -z $COURSE_ID ]]
+    then
+      # insert course
+      INSERT_COURSE_RESULT=$($PSQL "INSERT INTO courses(course) VALUES('$COURSE')")
+      if [[ $INSERT_COURSE_RESULT == "INSERT 0 1" ]]
+      then
+        echo Inserted into courses, $COURSE
+      fi
+
+      # get new course_id
+      COURSE_ID=$($PSQL "SELECT course_id FROM courses WHERE course='$COURSE'")
+    fi
+
+    # insert into majors_courses
+    INSERT_MAJORS_COURSES_RESULT=$($PSQL "INSERT INTO majors_courses(major_id, course_id) VALUES($MAJOR_ID, $COURSE_ID)")
+    if [[ $INSERT_MAJORS_COURSES_RESULT == "INSERT 0 1" ]]
+    then
+      echo Inserted into majors_courses, $MAJOR : $COURSE
+    fi
+  fi
+done
+
+cat students.csv | while IFS="," read FIRST LAST MAJOR GPA
+do
+  if [[ $FIRST != "first_name" ]]
+  then
+    # get major_id
+    MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
+
+     # if not found
+    if [[ -z $MAJOR_ID ]]
+    then
+      # set to null
+      MAJOR_ID=null
+    fi
+    
+    # insert student
+    INSERT_STUDENT_RESULT=$($PSQL "INSERT INTO students(first_name, last_name, major_id, gpa) VALUES('$FIRST', '$LAST', $MAJOR_ID, $GPA)")
+    if [[ $INSERT_STUDENT_RESULT == "INSERT 0 1" ]]
+    then
+       echo Inserted into students, $FIRST $LAST 
+    fi
+  fi
+  
+done
+
+-----------------------------------------------------------------------------------------------------
+
+case EXPRESSION in
+  PATTERN) STATEMENTS ;;
+  PATTERN) STATEMENTS ;;
+  PATTERN) STATEMENTS ;;
+  *) STATEMENTS ;;
+esac
+case statement in bash scripting

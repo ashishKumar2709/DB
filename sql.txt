@@ -1,0 +1,16 @@
+RDBMS (Relation Database Management System): This is software that helps create and maintain relational DB. 
+eg: mySQL, Oracle, postgegsSQL, mariaDB etc.
+
+SQL(Structured Query Language): This Language is used to interact with the RDBMS.
+
+In Relational Databases similar groups of data is organised into a table and a particular database can have multiple tables which may be related to each other in some way.
+
+Each table have columns and rows, where column is the name of the data and each row is the actual data.
+
+Each table have a column, data in which is referred to as the primary key of the table. This data in rows of this column uniquely identifies each individual rows.
+
+Each table may have a column which can be the foreign key of the table. This foreign key is actually the primary key in some other table and hence defines relation of former with the later table.
+
+There can be multiple foreign key in table and composite of each foreign key can be considered as the primary key of the table.
+
+Query is a set of instruction written in SQL which tells RDBMS which set of data to retrieve.
