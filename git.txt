@@ -1,0 +1,115 @@
+git checkout -b new_branch. The -b stands for "branch"
+to switch to a new branch
+
+In software development, "fix" and "feat" are prefixes used in commit messages to indicate the type of change made to a codebase: 
+Prefix
+Meaning
+fix
+Fixes a bug in the codebase
+feat
+Adds a new feature to the codebase
+
+git merge <branch_name> 
+to bring changes from a branch into the branch you are currently on.
+
+git branch -d <branch_name>
+to delete a branch. -d stands for "delete".
+
+git rebase <branch_name>
+to rebase current branch with mentioned branch(pull updated commits to current branch). eg git rebase main,
+To be more specific, a rebase will "rewind" this branch to where it last matched main, 
+then, add the commits from main that aren't here. 
+After that, it adds the commits you made to this branch on top.
+however, if some one else has made commits to main git rebase will throw conflicts,
+All conflicts needs to resolved and then one can run:  git rebase --continue
+
+git stash
+to stash the uncommited changes in a branch
+
+git stash list
+to view the stashed changes
+
+git stash pop
+to bring the top changes back to current branch(like stack)
+
+git stash show
+to view a condensed version of the changes in the latest stash with.
+
+git stash show -p
+to view the full changes of the latest stash. -p stands for "patch".
+
+git stash apply
+to add the latest stash while keeping it in the list
+
+git stash show <stash@{#}> OR git stash show -p <stash@{#}> 
+one can use the name at the front of each stash (stash@{#}) 
+with many of the stash commands to select one other than the latest one. eg: git stash show stash@{0}
+
+git stash drop or git stash drop <stash_name>
+to drop latest or specific stash
+
+git reset HEAD~<n> 
+to go back n commits before HEAD. HEAD is a reference to the last commit you just made.
+This command can be used to travel to any point in your commit history. 
+It is used to remove or undo a commit. 
+The first is to simply "travel back in time". 
+So when one reset to one commit before HEAD (git reset HEAD~1), it removed the most recent commit, 
+and put all the changes in the working tree. 
+
+If one used the --hard (git reset --hard) flag with the reset, 
+the changes would have not been added to the working tree and if you used the --soft flag, 
+the changes would have been added to the working tree and to staging.
+
+git revert HEAD
+to revert the most recent commit (HEAD). 
+Reverting is a good way to undo a commit because you don't lose the commit from the history. 
+
+git rebase --interactive HEAD~<n>
+one can enter an "interactive" mode to manipulate commits. 
+eg:entering git rebase --interactive HEAD~2 into the terminal to enter this mode. 
+The HEAD~2 means you will have a chance to change the last two commits.
+When in the interactive mode commit file is opened with nano.
+At the top of Nano, one can see the two commits with pick next to them. 
+Below them, there's a list of options for working with them. 
+pick means that it will use the commits as they were. 
+At the bottom, it says, d, drop = remove commit. 
+Replace the word pick preceeding your two commits with a d to drop them both. 
+When you are done, save the file and exit Nano.
+
+r, reword = use commit, 
+to edit the commit message while in interactive mode. 
+Replace pick with an r next to the commit with the message (which we need to edit) to reword the message, 
+Git will put you in another Nano instance to reword the commit message.
+eg: it will show Git is waiting for you to edit the commit message. 
+edit the required message 
+When you are done, save the file and exit Nano.
+The message was reworded, but there's a problem. 
+Look at the commit hash for your Initial commit from the last two times you viewed the log, 
+it's that string left of the log. 
+They aren't the same anymore since you rebased back to the root. 
+Same goes for the rest of the commits. 
+When you rebase interactively it changes all those hashes, so git sees them as different commits. 
+If you were to try and merge this into main, 
+it wouldn't work because they don't share the same history anymore. 
+For this reason, you don't want to do an interactive rebase where you go back passed commits unique to the branch you are on. 
+Fortunately, you can fix this. 
+Enter git rebase main to realign the history of the two branches.
+Now the hashes are the same as they were before you rebased back to --root, which is what they are on main
+
+Squashing commits means that you will take a bunch of commits and turn them into one. 
+This is helpful to keep commit history clean and something you want try to do. 
+Replace pick with an s next to all your commits except the one with the message feat: add column references. 
+When you are done, save and exit the file. You will find yourself in another instance of Nano. 
+Don't change anything in it yet.
+Nano brought up a list of all the commit messages you used for the commits.
+Don't change anything in there, just exit the file to use those messages and finish squashing the commits.
+Now all the "column" commits you made to this branch have been squashed into just the one commit at the top
+The lines that don't start with a # will be the commit messages. Add a new message at the top of the file on it's own line. 
+Give it the text, fix: add missing rename references. 
+When you are done, save and exit the file.
+
+View the log again, but use -1 instead of --oneline this time to view only the last commit.
+You can see that your one commit has all the messages that were in Nano, 
+which are all of the commits you made to this branch squashed into one commit.
+You viewed the most recent log with a -1 flag. 
+You can view the last x number of commits with any number instead of 1

@@ -36,7 +36,7 @@ change table removing a column with mentioned name.
 ALTER TABLE <table_name> RENAME COLUMN <column_name> TO <new_name>;
 to rename a existing column name to a new name.
 
-INSERT INTO <table_name>(column_1, column_2) VALUES(value1, value2);
+INSERT INTO <table_name>(column_1, column_2) VALUES('value1', 'value2');
 to insert values(rows) in each mentioned column.
 
 INSERT INTO <table_name>(column_1, column_2) VALUES(value1, value2), (value3, value4), (value5, value6), (value7, value8);
@@ -138,3 +138,10 @@ If you leave your virtual machine, your database may not be saved. You can make 
 
 If you are saving your progress on freeCodeCamp.org, after getting all the tests to pass, follow the instructions above to save a dump of your database. Save the universe.sql file in a public repository and submit the URL to it on freeCodeCamp.org.
 
+UPDATE <table_name> SET <column_name> = INITCAP(column_name); 
+to capitalize string values in a column.
+
+UPDATE <table_name1> SET <column_name> = (SELECT <column_name> FROM <table_name2> WHERE table_name2.Col = table_name1.Col);
+to update value in a table which related to a different table.
+
+update properties set atomic_mass = trim(trailing '0' from atomic_mass::text)::numeric
